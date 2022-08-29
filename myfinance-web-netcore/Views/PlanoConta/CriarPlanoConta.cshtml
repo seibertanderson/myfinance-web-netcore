@@ -8,7 +8,7 @@
     try
     {
         vDescricao = @ViewBag.PlanoConta.Descricao;
-        vTipo = @ViewBag.PlanoConta.Tipo;
+        vTipo = @ViewBag.PlanoConta.Tipo.ToString().Trim();
     }
     catch { };
 }
@@ -25,8 +25,17 @@
         </div>
 
         <div class="col-lg-3">
-            <label for="tipo">Tipo</label>
-            <input type="text" class="form-control" asp-for="Tipo" value=@vTipo />
+            <label>Tipo:</label>
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input @(@vTipo.Trim() == "R" ? "checked" : null) type="radio" class="form-check-input" asp-for="Tipo" value="R">Receita
+                </label>
+            </div>
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input @(@vTipo.Trim() == "D" ? "checked" : null) type="radio" class="form-check-input" asp-for="Tipo" value="D">Despesa
+                </label>
+            </div>
         </div>
     </div>
 

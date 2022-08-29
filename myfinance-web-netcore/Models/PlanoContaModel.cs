@@ -4,9 +4,9 @@ namespace myfinance_web_netcore.Models
 {
     public class PlanoContaModel
     {
-        public int Id { get; set; }
-        public string Descricao { get; set; }
-        public string Tipo { get; set; }
+        public int? Id { get; set; }
+        public string? Descricao { get; set; }
+        public string? Tipo { get; set; }
 
         public List<PlanoContaModel> ListaPlanoContas()
         {
@@ -30,6 +30,25 @@ namespace myfinance_web_netcore.Models
             return lista;
         }
 
+        public PlanoContaModel CarregarPlanoContaPorId(int? id)
+        {
+            var objDal = DAL.GetInstancia;
+            objDal.Conectar();
+
+            var sql = $"SELECT ID, DESCRICAO, TIPO FROM PLANO_CONTAS WHERE ID = {id}";
+            var dataTable = objDal.RetornarDataTable(sql);
+
+            PlanoContaModel obj = new PlanoContaModel()
+            {
+                Id = int.Parse(dataTable.Rows[0]["id"].ToString()),
+                Descricao = dataTable.Rows[0]["descricao"].ToString(),
+                Tipo = dataTable.Rows[0]["tipo"].ToString()
+            };
+
+            objDal.Desconectar();
+            return obj;
+        }
+
         public void Inserir()
         {
             var objDal = DAL.GetInstancia;
@@ -39,6 +58,30 @@ namespace myfinance_web_netcore.Models
             objDal.ExecutarComandoSQL(sql);
             objDal.Desconectar();
 
+        }
+
+        public void Editar(int? id)
+        {
+            var objDal = DAL.GetInstancia;
+            objDal.Conectar();
+
+            var sql = $@"UPDATE PLANO_CONTAS 
+                         SET DESCRICAO = '{Descricao}',
+                         TIPO = '{Tipo}'
+                         WHERE ID = {id} ";
+            objDal.ExecutarComandoSQL(sql);
+            objDal.Desconectar();
+
+        }
+
+        public void Excluir(int id)
+        {
+            var objDal = DAL.GetInstancia;
+            objDal.Conectar();
+
+            var sql = $"DELETE FROM PLANO_CONTAS WHERE ID = {id}";
+            objDal.ExecutarComandoSQL(sql);
+            objDal.Desconectar();
         }
     }
 }

@@ -1,16 +1,41 @@
 ﻿@model PlanoContaModel
 @{
     ViewData["Title"] = "Criar Plano de Conta";
+
+    var vDescricao = string.Empty;
+    var vTipo = string.Empty;
+
+    try
+    {
+        vDescricao = @ViewBag.PlanoConta.Descricao;
+        vTipo = @ViewBag.PlanoConta.Tipo;
+    }
+    catch { };
 }
 
 <h1>@ViewData["Title"]</h1>
 
 <form asp-controller="PlanoConta" asp-action="CriarPlanoConta">
-    <label for="descricao">Descrição</label><br />
-    <input type="text" asp-for="Descricao" /><br />
+    <input type="hidden" asp-for="Id" readonly /><br />
 
-    <label for="tipo">Tipo</label><br />
-    <input type="text" asp-for="Tipo" /><br />
+    <div class="row form-group mb-3">
+        <div class="col-lg-9">
+            <label for="descricao">Descrição:</label>
+            <input type="text" class="form-control" asp-for="Descricao" value=@vDescricao />
+        </div>
+
+        <div class="col-lg-3">
+            <label for="tipo">Tipo</label>
+            <input type="text" class="form-control" asp-for="Tipo" value=@vTipo />
+        </div>
+    </div>
 
     <button type="submit" class="btn btn-block btn-success">Salvar</button>
+    <input type="button" class="btn btn-block btn-danger" onclick="Cancelar()" value="Cancelar" />
 </form>
+
+<script>
+    function Cancelar(){
+        window.location.href = "/PlanoConta";
+    }
+</script>

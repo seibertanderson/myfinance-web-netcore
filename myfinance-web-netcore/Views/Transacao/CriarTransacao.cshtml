@@ -39,6 +39,7 @@
         <div class="col-lg-3">
             <label>Tipo:</label>
             <input type="text" class="form-control" asp-for="Tipo" value=@vTipo />
+            <span asp-validation-for="Tipo" class="text-danger"></span>
         </div>
 
         <div class="col-lg-3">
@@ -48,24 +49,13 @@
         </div>
 
         <div class="col-lg-3">
-            <label>Plano de Contas:</label>
-            <select asp-for=IdPlanoConta class="form-control">
-                <option value="0">Selecionar</option>
-                @{
-                    foreach (var item in ViewBag.ListaPlanoContas)
-                    {
-                        if (item.Id.ToString() == vPlanoContaId.ToString())
-                        {
-                            <option selected value="@item.Id">@item.Descricao</option>
-                        }
-                        else
-                        {
-                            <option value="@item.Id">@item.Descricao</option>
-                        }
-                    }
-                }
-            </select>
+            @Html.LabelFor(x => Model.IdPlanoConta)
+            @Html.DropDownListFor(x => Model.IdPlanoConta,
+            new SelectList(Model.PlanoContas, "Value", "Text"),
+            new { @class = "form-control", id= "IdPlanoConta" }
+            )
         </div>
+        
     </div>
 
     <div class="form-group mb-3">

@@ -6,13 +6,24 @@ namespace myfinance_web_netcore.Domain
 {
     public class Transacao
     {
-        public List<TransacaoModel> ListaTransacoes()
+        public List<TransacaoModel> ListaTransacoes(DateTime? dataInicial = null, DateTime? dataFinal = null)
         {
             List<TransacaoModel> lista = new List<TransacaoModel>();
             var objDal = DAL.GetInstancia;
             objDal.Conectar();
 
-            var sql = "SELECT ID, HISTORICO, TIPO, DATA, VALOR, ID_PLANO_CONTA FROM TRANSACAO";
+            var sql = "SELECT ID, HISTORICO, TIPO, DATA, VALOR, ID_PLANO_CONTA FROM TRANSACAO WHERE 1=1 ";
+
+            if (dataInicial != null)
+            {
+                sql += $" AND DATA >= {dataInicial} ";
+            }
+
+            if (dataFinal != null)
+            {
+                sql += $" AND DATA <= {dataFinal} ";
+            }
+
             var dataTable = objDal.RetornarDataTable(sql);
 
             for (int i = 0; i < dataTable.Rows.Count; i++)
@@ -38,7 +49,7 @@ namespace myfinance_web_netcore.Domain
 
             string sql = @$"INSERT INTO TRANSACAO(DATA, VALOR, TIPO, HISTORICO, ID_PLANO_CONTA) 
                 VALUES (
-                '{form.Data.ToString("yyyy-MM-dd")}', {form.Valor}, '{form.Tipo}', 
+                '{form.Data?.ToString("yyyy-MM-dd")}', {form.Valor}, '{form.Tipo}', 
                 '{form.Historico}', {form.IdPlanoConta})";
 
             dalInstance.ExecutarComandoSQL(sql);
@@ -50,7 +61,7 @@ namespace myfinance_web_netcore.Domain
             DAL dalInstance = DAL.GetInstancia;
             dalInstance.Conectar();
 
-            string sql = @$"UPDATE TRANSACAO SET DATA = '{form.Data.ToString("yyyy-MM-dd")}',
+            string sql = @$"UPDATE TRANSACAO SET DATA = '{form.Data?.ToString("yyyy-MM-dd")}',
                 VALOR = {form.Valor}, TIPO = '{form.Tipo}', HISTORICO = '{form.Historico}', 
                 ID_PLANO_CONTA = {form.IdPlanoConta} WHERE ID = {form.Id}";
 

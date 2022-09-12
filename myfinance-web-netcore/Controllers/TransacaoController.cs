@@ -20,22 +20,42 @@ namespace myfinance_web_netcore.Controllers
             return View();
         }
 
+        public IActionResult TransacaoPorPeriodo()
+        {
+            var transacao = new Transacao();
+            ViewBag.Lista = transacao.ListaTransacoes();
+            return View();
+        }
+
         [HttpGet]
         public IActionResult CriarTransacao(int? id)
         {
+            var model = new TransacaoModel();
             if (id != null)
             {
                 var transacao = new Transacao().CarregarTransacaoPorId(id);
+                model = transacao;
                 ViewBag.Transacao = transacao;
             }
 
             ViewBag.ListaPlanoContas = new PlanoContaModel().ListaPlanoContas();
-            return View();
+            model.PlanoContas = new PlanoContaModel().ListaSelectItemPlanoContas();
+
+            return View(model);
         }
 
         [HttpPost]
         public IActionResult CriarTransacao(TransacaoModel form)
         {
+            var model = new TransacaoModel();
+            ViewBag.ListaPlanoContas = new PlanoContaModel().ListaPlanoContas();
+            model.PlanoContas = new PlanoContaModel().ListaSelectItemPlanoContas();
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
             Transacao transacao = new Transacao();
 
             if (form.Id == null)

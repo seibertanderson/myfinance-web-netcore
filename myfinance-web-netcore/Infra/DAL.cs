@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 
 namespace myfinance_web_netcore.Infra
 {
-    public class DAL
+    public class DAL : IDAL
     {
         private SqlConnection conn;
         private string connectionString;
@@ -24,16 +24,27 @@ namespace myfinance_web_netcore.Infra
             connectionString = configuration.GetValue<string>("ConnectionString");
         }
 
-        public void Conectar()
+        public bool Conectar()
         {
-            conn = new();
-            conn.ConnectionString = connectionString;
-            conn.Open();
+            try
+            {
+                conn = new();
+                conn.ConnectionString = connectionString;
+                conn.Open();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public void Desconectar()
         {
-            conn.Close();
+            if (conn != null)
+            {
+                conn.Close();
+            }
         }
 
         /// <summary>
@@ -44,7 +55,7 @@ namespace myfinance_web_netcore.Infra
         public DataTable RetornarDataTable(string sql)
         {
             var dataTable = new DataTable();
-            SqlDataAdapter adapter = new SqlDataAdapter(sql , conn);
+            SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
             adapter.Fill(dataTable);
             return dataTable;
         }

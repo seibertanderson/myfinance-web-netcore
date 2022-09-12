@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using myfinance_web_netcore.Models;
-using System.Diagnostics;
 
 namespace myfinance_web_netcore.Controllers
 {
@@ -29,7 +28,7 @@ namespace myfinance_web_netcore.Controllers
                 var planoContas = new PlanoContaModel().CarregarPlanoContaPorId(id);
                 ViewBag.PlanoConta = planoContas;
             }
-            
+
             return View();
         }
 

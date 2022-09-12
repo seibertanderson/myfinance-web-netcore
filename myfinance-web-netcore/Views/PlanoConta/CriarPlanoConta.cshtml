@@ -28,12 +28,31 @@
             <label>Tipo:</label>
             <div class="form-check">
                 <label class="form-check-label">
-                    <input @(@vTipo.Trim() == "R" ? "checked" : null) type="radio" class="form-check-input" asp-for="Tipo" value="R">Receita
+                    @{
+                        if (@vTipo == "R")
+                        {
+                            <input asp-for="Tipo" type="radio" class="form-check-input" value="R" checked />
+                        }
+                        else
+                        {
+                            <input asp-for="Tipo" type="radio" class="form-check-input" value="R" />
+                        }
+                    } Receita
                 </label>
             </div>
             <div class="form-check">
                 <label class="form-check-label">
-                    <input @(@vTipo.Trim() == "D" ? "checked" : null) type="radio" class="form-check-input" asp-for="Tipo" value="D">Despesa
+                    @{
+                        if (@vTipo == "D")
+                        {
+                            <input type="radio" class="form-check-input" asp-for="Tipo" value="D" checked>
+                        }
+                        else
+                        {
+                            <input type="radio" class="form-check-input" asp-for="Tipo" value="D">
+                        }
+                    }
+                    Despesa
                 </label>
             </div>
         </div>

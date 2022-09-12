@@ -8,6 +8,7 @@
 
 <div class="mb-3">
     <button type="button" class="btn btn-block btn-primary" onclick="CriarTransacao()">Registrar Transação</button>
+    @*<button type="button" class="btn btn-block btn-primary" onclick="TransacaoPorPeriodo()">Relatórios</button>*@
 </div>
 
 <table class="table table-bordered">
@@ -62,5 +63,9 @@
 
     function EditarTransacao(id){
         window.location.href = "../Transacao/CriarTransacao/" + id;
+    }
+
+    function TransacaoPorPeriodo(){
+        window.location.href = "../Transacao/TransacaoPorPeriodo";
     }
 </script>

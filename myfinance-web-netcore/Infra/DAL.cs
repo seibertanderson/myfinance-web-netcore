@@ -8,7 +8,7 @@ namespace myfinance_web_netcore.Infra
         private SqlConnection conn;
         private string connectionString;
         public static IConfiguration? configuration;
-        private static DAL Instancia;
+        private static DAL? Instancia;
 
         public static DAL GetInstancia
         {
@@ -48,7 +48,7 @@ namespace myfinance_web_netcore.Infra
         }
 
         /// <summary>
-        /// Select
+        /// SELECT
         /// </summary>
         /// <param name="sql"></param>
         /// <returns></returns>
@@ -64,10 +64,10 @@ namespace myfinance_web_netcore.Infra
         /// INSERT, UPDATE, DELETE
         /// </summary>
         /// <param name="sql"></param>
-        public void ExecutarComandoSQL(string sql)
+        public int ExecutarComandoSQL(string sql)
         {
             SqlCommand cmd = new SqlCommand(sql, conn);
-            cmd.ExecuteNonQuery();
+            return cmd.ExecuteNonQuery();
         }
 
     }

@@ -20,6 +20,6 @@ namespace myfinance_web_netcore.Models
         [Display(Name = "Plano de Contas")]
         [Required(ErrorMessage = "Campo Obrigatório")]
         public int? IdPlanoConta { get; set; }
-        public IEnumerable<SelectListItem> PlanoContas { get; set; }
+        public IEnumerable<SelectListItem>? PlanoContas { get; set; }
     }
 }

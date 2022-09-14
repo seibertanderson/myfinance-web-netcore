@@ -1,10 +1,11 @@
-﻿using myfinance_web_netcore.Infra;
+﻿using myfinance_web_netcore.Domain.Interfaces;
+using myfinance_web_netcore.Infra;
 using myfinance_web_netcore.Models;
 using System.Data;
 
-namespace myfinance_web_netcore.Domain
+namespace myfinance_web_netcore.Domain.Implementacao
 {
-    public class Transacao
+    public class Transacao : ITransacao
     {
         public List<TransacaoModel> ListaTransacoes(DateTime? dataInicial = null, DateTime? dataFinal = null)
         {
@@ -42,7 +43,7 @@ namespace myfinance_web_netcore.Domain
             return lista;
         }
 
-        public void Inserir(TransacaoModel form)
+        public int Inserir(TransacaoModel form)
         {
             DAL dalInstance = DAL.GetInstancia;
             dalInstance.Conectar();
@@ -52,8 +53,9 @@ namespace myfinance_web_netcore.Domain
                 '{form.Data?.ToString("yyyy-MM-dd")}', {form.Valor}, '{form.Tipo}', 
                 '{form.Historico}', {form.IdPlanoConta})";
 
-            dalInstance.ExecutarComandoSQL(sql);
+            var retorno = dalInstance.ExecutarComandoSQL(sql);
             dalInstance.Desconectar();
+            return retorno;
         }
 
         public void Editar(TransacaoModel form)

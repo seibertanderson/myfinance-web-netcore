@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using myfinance_web_netcore.Domain;
+using myfinance_web_netcore.Domain.Implementacao;
 using myfinance_web_netcore.Models;
 
 namespace myfinance_web_netcore.Controllers
@@ -38,8 +38,8 @@ namespace myfinance_web_netcore.Controllers
                 ViewBag.Transacao = transacao;
             }
 
-            ViewBag.ListaPlanoContas = new PlanoContaModel().ListaPlanoContas();
-            model.PlanoContas = new PlanoContaModel().ListaSelectItemPlanoContas();
+            ViewBag.ListaPlanoContas = new PlanoConta().ListaPlanoContas();
+            model.PlanoContas = new PlanoConta().ListaSelectItemPlanoContas();
 
             return View(model);
         }
@@ -48,8 +48,8 @@ namespace myfinance_web_netcore.Controllers
         public IActionResult CriarTransacao(TransacaoModel form)
         {
             var model = new TransacaoModel();
-            ViewBag.ListaPlanoContas = new PlanoContaModel().ListaPlanoContas();
-            model.PlanoContas = new PlanoContaModel().ListaSelectItemPlanoContas();
+            ViewBag.ListaPlanoContas = new PlanoConta().ListaPlanoContas();
+            model.PlanoContas = new PlanoConta().ListaSelectItemPlanoContas();
 
             if (!ModelState.IsValid)
             {

@@ -8,7 +8,7 @@ namespace myfinance_web_xunit.Infra;
 
 public class DALTest
 {
-    private readonly Mock<IDAL> _dalMock = new Mock<IDAL>();
+    private readonly Mock<IDAL> _DALMock = new();
 
     private void InicializarTeste()
     {
@@ -74,13 +74,13 @@ public class DALTest
         //Arrange
         InicializarTeste();
 
-        _dalMock.Setup(x => x.Conectar()).Returns(true);
+        _DALMock.Setup(x => x.Conectar()).Returns(true);
 
         //Act
-        var resultConexao = _dalMock.Object.Conectar();
+        var resultConexao = _DALMock.Object.Conectar();
 
         //Asserts
-        _dalMock.Verify(x => x.Conectar(), Times.Once);
+        _DALMock.Verify(x => x.Conectar(), Times.Once);
         Assert.True(resultConexao);
     }
 }

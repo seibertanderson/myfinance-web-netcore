@@ -7,6 +7,6 @@ namespace myfinance_web_netcore.Infra
         bool Conectar();
         void Desconectar();
         DataTable RetornarDataTable(string sql);
-        void ExecutarComandoSQL(string sql);
+        int ExecutarComandoSQL(string sql);
     }
 }

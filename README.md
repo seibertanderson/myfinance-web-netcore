@@ -24,3 +24,7 @@ O estrutura do banco de dados foi criada com duas tabelas:
     - id_plano_conta: é a referencia para a tabela de plano_contas.
 
 <hr />
+
+### 💻 Arquitetura da Aplicação
+
+A aplicação foi desenvolvida utilizando como arquitetura o padrão MVC, Model, View, Controller.
